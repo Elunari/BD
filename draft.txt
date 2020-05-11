@@ -4,22 +4,8 @@ Zabytek
     Nazwa: T80
     Czynny: bool
     LokalizacjaID: int [FOREIGN, Lokalizacja.LokalizacjaID]
-    OpisID: int [OpisZabytku.OpisID]
-    NotakiPrzewodnikaID: int [InformacjeDlaPrzewodnikow.InformacjeID]
-}
-
-OpisZabytku
-{
-    OpisID: int [AUTO_INCREMENT, PRIMARY]
-    ZabytekID: int [FOREIGN Zabytek.ZabytekID]
     Opis: LongText
-}
-
-NotakiPrzewodnika
-{
-    NotakiPrzewodnikaID: int [AUTO_INCREMENT, PRIMARY]
-    ZabytekID: int [FOREIGN Zabytek.ZabytekID]
-    Opis: LongText
+    NotakiPrzewodnikaID: LongText
 }
 
 ZdjecieZabytku
