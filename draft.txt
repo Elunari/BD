@@ -6,6 +6,7 @@ Zabytek
     LokalizacjaID: int [FOREIGN, Lokalizacja.LokalizacjaID]
     Opis: LongText
     NotakiPrzewodnikaID: LongText
+    DziennaPulaBiletow: int
 }
 
 ZdjecieZabytku
@@ -70,7 +71,7 @@ Bilet
 Zwiedzanie
 {
     ZwiedzanieID: int [AUTO_INCREMENT, PRIMARY]
-    Czego: ZabytekID
+    ZabytekID: ZabytekID
     Poczatek: DateTime
     Koniec: DateTime
 }
@@ -107,10 +108,4 @@ Administruje
 {
     AdministratorID: int [Administrator.AdministratorID]
     ZabytekID: int [Zabytek.ZabytekID]
-}
-
-PulaBiletow
-{
-    ZwiedzanieID: int [FOREIGN, Zwiedzanie.ZwiedzanieID]
-    SumaDoSprzedania: int
 }
