@@ -58,6 +58,7 @@ GrupaZwiedzajacych
     GrupaZwiedzajacychID: int [AUTO_INCREMENT, PRIMARY]
     PrzewodnikID: int [Przewodnik.PrzewodnikID]
     ZwedzanieId: int [FOREIGN Zwiedzanie.ZwiedzanieID]
+    LimitZwiedzajacych: int
 }
 
 Bilet
