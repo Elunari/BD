@@ -1,0 +1,130 @@
+Zabytek
+{
+    ZabytekID: int [AUTO_INCREMENT, PRIMARY]
+    Nazwa: T80
+    Czynny: bool
+    LokalizacjaID: int [FOREIGN, Lokalizacja.LokalizacjaID]
+    OpisID: int [OpisZabytku.OpisID]
+    NotakiPrzewodnikaID: int [InformacjeDlaPrzewodnikow.InformacjeID]
+}
+
+OpisZabytku
+{
+    OpisID: int [AUTO_INCREMENT, PRIMARY]
+    ZabytekID: int [FOREIGN Zabytek.ZabytekID]
+    Opis: LongText
+}
+
+NotakiPrzewodnika
+{
+    NotakiPrzewodnikaID: int [AUTO_INCREMENT, PRIMARY]
+    ZabytekID: int [FOREIGN Zabytek.ZabytekID]
+    Opis: LongText
+}
+
+ZdjecieZabytku
+{
+    ZdjecieID: int [AUTO_INCREMENT, PRIMARY]
+    ZabytekID: int [Zabytek.ZabytekID]
+    ZdjecieURL: T255
+}
+
+Lokalizacja
+{
+    LokalizacjaID: int [AUTO_INCREMENT, PRIMARY]
+    ZabytekID: int [FOREIGN, Zabytek.ZabytekID]
+    MiejscowoscID: int [Miejscowosc.MiejscowoscID]
+    Adres: T40
+}
+
+Miejscowosc
+{
+    MiejscowoscID: int [AUTO_INCREMENT, PRIMARY]
+    Nazwa: T30
+}
+
+GodzinyOtwarcia
+{
+    ZabytekID int [FOREIGN, Zabytek.ZabytekID]
+    DzienTygodnia: T12
+    GodzinaOtwarcia: Time
+    GodzinaZamknięcia: Time
+}
+
+Zwiedzajacy
+{
+    ZwiedzajacyID: int [AUTO_INCREMENT, PRIMARY]
+    Nazwisko: T30
+    Imie: T30
+    NrTelefonu: T12
+    AdresEmail: T255 # RFC 5322 & RFC 5321
+}
+
+NalezyDoGrupyZwiedzajacych
+{
+    ZwiedzajacyID: int [FOREIGN Zwiedzajacy.ZwiedzajacyID]
+    GrupaZwiedzajacychID: int [FOREIGN GrupaZwiedzajacych.GrupaZwiedzajacychID]
+}
+
+GrupaZwiedzajacych
+{
+    GrupaZwiedzajacychID: int [AUTO_INCREMENT, PRIMARY]
+    PrzewodnikID: int [Przewodnik.PrzewodnikID]
+    ZwedzanieId: int [FOREIGN Zwiedzanie.ZwiedzanieID]
+}
+
+Bilet
+{
+    BiletID: int [AUTO_INCREMENT, PRIMARY]
+    Cena: decimal (7, 2)
+    ZwiedzajacyID: int [Zwiedzajacy.ZwiedzajacyID]
+    ZwedzanieId: int [Zwiedzanie.ZwiedzanieID]
+}
+
+Zwiedzanie
+{
+    ZwiedzanieID: int [AUTO_INCREMENT, PRIMARY]
+    Czego: ZabytekID
+    Poczatek: DateTime
+    Koniec: DateTime
+}
+
+Przewodnik
+{
+    PrzewodnikID: int [AUTO_INCREMENT, PRIMARY]
+    Nazwisko: T30
+    Imie: T30
+    NrTelefonu: T12
+    AdresEmail: T255 # RFC 5322 & RFC 5321
+}
+
+Kontrakt
+{
+    KontraktID: int [AUTO_INCREMENT, PRIMARY]
+    PrzewodnikID: int [Przewodnik.PrzewodnikID]
+    AdministratorID: int [Administrator.AdministratorID]
+    PoczatekKontraktu: DateTime
+    KoniecKontraktu: DateTime
+    KwotaWynagrodzenia: decimal (7, 2)
+}
+
+Administrator
+{
+    AdministratorID: int [AUTO_INCREMENT, PRIMARY]
+    Nazwisko: T30
+    Imie: T30
+    NrTelefonu: T12
+    AdresEmail: T255 # RFC 5322 & RFC 5321
+}
+
+Administruje
+{
+    AdministratorID: int [Administrator.AdministratorID]
+    ZabytekID: int [Zabytek.ZabytekID]
+}
+
+PulaBiletow
+{
+    ZwiedzanieID: int [FOREIGN, Zwiedzanie.ZwiedzanieID]
+    SumaDoSprzedania: int
+}
