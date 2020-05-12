@@ -2,10 +2,10 @@ Zabytek
 {
     ZabytekID: int [AUTO_INCREMENT, PRIMARY]
     Nazwa: T80
-    Czynny: bool
+    CzyCzynny: bool
     LokalizacjaID: int [FOREIGN, Lokalizacja.LokalizacjaID]
     Opis: LongText
-    NotakiPrzewodnikaID: LongText
+    NotakiPrzewodnika: LongText
     DziennaPulaBiletow: int
 }
 
@@ -47,24 +47,11 @@ Zwiedzajacy
     AdresEmail: T255 # RFC 5322 & RFC 5321
 }
 
-NalezyDoGrupyZwiedzajacych
-{
-    ZwiedzajacyID: int [FOREIGN Zwiedzajacy.ZwiedzajacyID]
-    GrupaZwiedzajacychID: int [FOREIGN GrupaZwiedzajacych.GrupaZwiedzajacychID]
-}
-
-GrupaZwiedzajacych
-{
-    GrupaZwiedzajacychID: int [AUTO_INCREMENT, PRIMARY]
-    PrzewodnikID: int [Przewodnik.PrzewodnikID]
-    ZwedzanieId: int [FOREIGN Zwiedzanie.ZwiedzanieID]
-    LimitZwiedzajacych: int
-}
-
 Bilet
 {
     BiletID: int [AUTO_INCREMENT, PRIMARY]
     Cena: decimal (7, 2)
+    Rodzaj: T30
     ZwiedzajacyID: int [Zwiedzajacy.ZwiedzajacyID]
     ZwedzanieId: int [Zwiedzanie.ZwiedzanieID]
 }
@@ -75,6 +62,20 @@ Zwiedzanie
     ZabytekID: ZabytekID
     Poczatek: DateTime
     Koniec: DateTime
+}
+
+NalezyDoGrupyZwiedzajacych
+{
+    BiletID: int [FOREIGN Bilet.BiletID]
+    GrupaZwiedzajacaID: int [FOREIGN GrupaZwiedzajaca.GrupaZwiedzajacaID]
+}
+
+GrupaZwiedzajaca
+{
+    GrupaZwiedzajacaID: int [AUTO_INCREMENT, PRIMARY]
+    PrzewodnikID: int [Przewodnik.PrzewodnikID]
+    ZwedzanieId: int [FOREIGN Zwiedzanie.ZwiedzanieID]
+    LimitZwiedzajacych: int
 }
 
 Przewodnik
@@ -93,7 +94,7 @@ Kontrakt
     AdministratorID: int [Administrator.AdministratorID]
     PoczatekKontraktu: DateTime
     KoniecKontraktu: DateTime
-    KwotaWynagrodzenia: decimal (7, 2)
+    Wynagrodzenie: decimal (7, 2)
 }
 
 Administrator
