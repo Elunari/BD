@@ -1,7 +1,7 @@
 Zabytek
 {
     ZabytekID: int [AUTO_INCREMENT, PRIMARY]
-    Nazwa: T80
+    NazwaZ: T80
     CzyCzynny: bool
     MiejscowoscID: int [Miejscowosc.MiejscowoscID]
     Adres: T40
@@ -20,7 +20,7 @@ ZdjecieZabytku
 Miejscowosc
 {
     MiejscowoscID: int [AUTO_INCREMENT, PRIMARY]
-    Nazwa: T30
+    NazwaM: T30
 }
 
 GodzinyOtwarcia
