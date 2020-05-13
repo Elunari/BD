@@ -1,0 +1,123 @@
+Zabytek
+{
+    ZabytekID: int [AUTO_INCREMENT, PRIMARY]
+    NazwaZ: T80
+    CzyCzynny: bool
+    MiejscowoscID: int [Miejscowosc.MiejscowoscID]
+    Adres: T40
+    Opis: LongText
+    NotakiPrzewodnika: LongText
+    DziennaPulaBiletow: int
+}
+
+ZdjecieZabytku
+{
+    ZdjecieID: int [AUTO_INCREMENT, PRIMARY]
+    ZabytekID: int [Zabytek.ZabytekID]
+    ZdjecieURL: T255
+}
+
+Miejscowosc
+{
+    MiejscowoscID: int [AUTO_INCREMENT, PRIMARY]
+    NazwaM: T30
+}
+
+GodzinyOtwarcia
+{
+    ZabytekID int [FOREIGN, Zabytek.ZabytekID]
+    DzienTygodnia: T12
+    GodzinaOtwarcia: Time
+    GodzinaZamknięcia: Time
+}
+
+CenaBiletu
+{
+    CenaBiletuID: int [AUTO_INCREMENT, PRIMARY]
+    ZabytekID: int [ZabytekID]
+    Cena: decimal (7, 2) [CenaBiletu.Cena]
+    Rodzaj: T30
+}
+
+Zwiedzajacy
+{
+    ZwiedzajacyID: int [AUTO_INCREMENT, PRIMARY]
+    Nazwisko: T30
+    Imie: T30
+    NrTelefonu: T12
+    AdresEmail: T255 # RFC 5322 & RFC 5321
+    DaneLogowaniaID: int [AUTO_INCREMENT, PRIMARY]
+}
+
+Bilet
+{
+    BiletID: int [AUTO_INCREMENT, PRIMARY]
+    CenaBiletuID: int [CenaBiletu.CenaBiletuID]
+    ZwiedzajacyID: int [Zwiedzajacy.ZwiedzajacyID]
+    ZwiedzanieId: int [Zwiedzanie.ZwiedzanieID]
+}
+
+Zwiedzanie
+{
+    ZwiedzanieID: int [AUTO_INCREMENT, PRIMARY]
+    ZabytekID: int [ZabytekID]
+    Poczatek: DateTime
+    Koniec: DateTime
+}
+
+NalezyDoGrupyZwiedzajacych
+{
+    BiletID: int [FOREIGN Bilet.BiletID]
+    GrupaZwiedzajacaID: int [FOREIGN GrupaZwiedzajaca.GrupaZwiedzajacaID]
+}
+
+GrupaZwiedzajaca
+{
+    GrupaZwiedzajacaID: int [AUTO_INCREMENT, PRIMARY]
+    PrzewodnikID: int [Przewodnik.PrzewodnikID]
+    ZwiedzanieId: int [FOREIGN Zwiedzanie.ZwiedzanieID]
+    LimitZwiedzajacych: int
+}
+
+Przewodnik
+{
+    PrzewodnikID: int [AUTO_INCREMENT, PRIMARY]
+    Nazwisko: T30
+    Imie: T30
+    NrTelefonu: T12
+    AdresEmail: T255 # RFC 5322 & RFC 5321
+    DaneLogowaniaID: int [AUTO_INCREMENT, PRIMARY]
+}
+
+Kontrakt
+{
+    KontraktID: int [AUTO_INCREMENT, PRIMARY]
+    PrzewodnikID: int [Przewodnik.PrzewodnikID]
+    AdministratorID: int [Administrator.AdministratorID]
+    PoczatekKontraktu: DateTime
+    KoniecKontraktu: DateTime
+    Wynagrodzenie: decimal (7, 2)
+}
+
+Administrator
+{
+    AdministratorID: int [AUTO_INCREMENT, PRIMARY]
+    Nazwisko: T30
+    Imie: T30
+    NrTelefonu: T12
+    AdresEmail: T255 # RFC 5322 & RFC 5321
+    DaneLogowaniaID: int [AUTO_INCREMENT, PRIMARY]
+}
+
+Administruje
+{
+    AdministratorID: int [Administrator.AdministratorID]
+    ZabytekID: int [Zabytek.ZabytekID]
+}
+
+DaneLogowania
+{
+    DaneLogowaniaID: int [AUTO_INCREMENT, PRIMARY]
+    Login: T100
+    HasloHash: T256 # SHA-256
+}
